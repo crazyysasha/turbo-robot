@@ -13,6 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(useMaterial3: true),
+      debugShowCheckedModeBanner: false,
       home: const FirstQuestionType(),
     );
   }
@@ -49,52 +50,59 @@ class TestQuestions extends StatelessWidget {
   const TestQuestions({
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
+      child: ListView(
         children: [
           Container(
-            color: Colors.grey,
-            alignment: Alignment.center,
-            width: 370,
-            height: 260,
-            child: const Text('Tut Doljna bit fotkas'),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            width: 370,
-            child: const Text(
-              '....... country has the highest life expectancy?',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
-              ),
+            width: MediaQuery.of(context).size.width,
+            child: Image.network(
+              'https://placehold.jp/450x300.png',
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          const TestQuestionsIcons(),
-          const SizedBox(
-            height: 30,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SecondQuestionType()));
-            },
-            style: ElevatedButton.styleFrom(
-                minimumSize: const Size(370, 70),
-                backgroundColor: Colors.white),
-            child: const Text(
-              'Next',
-              style: TextStyle(color: Colors.black, fontSize: 18),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const Text(
+                  '....... country has the highest life expectancy?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const TestQuestionsIcons(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const SecondQuestionType()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.all(20),
+                    ),
+                    child: const Text(
+                      'Next',
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],
@@ -108,91 +116,80 @@ class TestQuestionsIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(180, 140),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18)),
-                backgroundColor: Colors.redAccent,
-              ),
-              child: const Text(
-                'What',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        spacing: 20,
+        runSpacing: 20,
+        direction: Axis.horizontal,
+        children: [
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(180, 140),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)),
+              backgroundColor: Colors.redAccent,
             ),
-            const SizedBox(
-              height: 10,
+            child: const Text(
+              'What',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(180, 140),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18)),
-                backgroundColor: Colors.orange,
-              ),
-              child: const Text(
-                'How',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(180, 140),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)),
+              backgroundColor: Colors.orange,
             ),
-          ],
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(180, 140),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18)),
-                backgroundColor: Colors.blueAccent,
-              ),
-              child: const Text(
-                'Whose',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+            child: const Text(
+              'How',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(180, 140),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)),
+              backgroundColor: Colors.blueAccent,
             ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(180, 140),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18)),
-                backgroundColor: Colors.greenAccent,
-              ),
-              child: const Text(
-                'Where',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+            child: const Text(
+              'Whose',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
-          ],
-        ),
-      ],
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(180, 140),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)),
+              backgroundColor: Colors.greenAccent,
+            ),
+            child: const Text(
+              'Where',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
