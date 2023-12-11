@@ -1,7 +1,62 @@
+import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  OpenAI.apiKey = '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';
+  final OpenAI ai = OpenAI.instance;
+  final OpenAIChatCompletionModel completion = await ai.chat.create(
+    model: 'gpt-3.5-turbo',
+    messages: [
+      OpenAIChatCompletionChoiceMessageModel(
+        role: OpenAIChatMessageRole.system,
+        content: [
+          OpenAIChatCompletionChoiceMessageContentItemModel.text(
+            'ты генератор тестов для проверки уровня знаний английского языка(тесты для людей), который дает 10 тестов с вариантами ответов в виде JSON.',
+          ),
+        ],
+      ),
+    ],
+    // temperature: 1,
+    tools: [
+      OpenAIToolModel(
+        type: "function",
+        function: OpenAIFunctionModel.withParameters(
+          name: "testsGrouping",
+          parameters: [
+            OpenAIFunctionProperty.array(
+              name: 'tests',
+              isRequired: true,
+              items: OpenAIFunctionProperty.object(
+                name: 'question',
+                properties: [
+                  OpenAIFunctionProperty.string(name: 'text', isRequired: true),
+                  OpenAIFunctionProperty.array(
+                    name: 'answers',
+                    items: OpenAIFunctionProperty.string(
+                      name: 'text',
+                      isRequired: true,
+                    ),
+                    isRequired: true,
+                  ),
+                  OpenAIFunctionProperty.string(
+                    name: 'correct_answer',
+                    isRequired: true,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )
+    ],
+  );
+  final message = completion.choices.first.message;
+  print(message.content);
+  if (message.haveToolCalls) {
+    print('is tool');
+    print(message.toolCalls!.first.function.arguments);
+  }
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
